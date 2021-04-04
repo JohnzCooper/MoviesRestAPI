@@ -6,7 +6,7 @@ services:
     image: mongo:latest
     restart: always
     volumes:
-      - ./pokeData:/data/db
+      - ./moviesData:/data/db
     environment:
       - MONGO_INITDB_DATABASE= Movies
     ports:
