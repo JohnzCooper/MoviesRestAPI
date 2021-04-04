@@ -29,21 +29,11 @@ export class MovieService {
   }
   
   public async update(id: string, movie: IMovie) {
-    Movie.findByIdAndUpdate(
-      id,
-      movie
-    ).exec().then(response => {
-      if (!response) {
-        throw new Error(`Movie with id '${id}' not found`);
-      }
-      return response;
-    });
-
     return new Promise<IMovie>((resolve, reject)=>{
         Movie.findByIdAndUpdate( id, movie ).exec().then(response => {
             if (!response)
               return reject(`Movie with id '${id}' not found`);
-            return response;
+            return resolve(response);
         }).catch(error=>{
             reject(new Error(`Movie with id '${id}' not found`));
           });
