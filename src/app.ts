@@ -1,12 +1,13 @@
 import { Application } from "express";
-import { MovieController } from "./movie.controller";
-import { MovieService } from "./services/movie.service";
 import bodyParser from "body-parser";
 import cors from "cors";
 import express from "express";
 import mongoose from "mongoose";
 
 import { MONGO_URL } from "./constants/moviesRestApi.constants";
+import { MovieRoutes } from "./routes/movie.routes";
+import { MovieController } from "./movie.controller";
+import { MovieService} from "./services/movie.service";
 
 class App {
   public app: Application;
@@ -32,8 +33,8 @@ class App {
   }
 
   private setControllers() {
-    const movieController = new MovieController(new MovieService());
-    this.app.use("/api/v1/movie", movieController.router);
+    const movieRoutes = new MovieRoutes(new MovieController( new MovieService()));
+    this.app.use("/api/v1/movie", movieRoutes.router);
   }
 }
 
